@@ -90,8 +90,7 @@ public class RedBlackTree {
                 if (node == parent.right) {//此条件执行uncle为空(空节点默认就是黑色)和不为空但是为黑色
                     leftRotate(parent);
                     RedBlackNode tmp;
-                    //有疑问，旋转之后为什么还要交换节点呢？？？？？？？？？
-                    //应该是交换节点的引用而已
+                    //是交换节点的引用而已
                     tmp = parent;
                     parent = node;
                     node = tmp;
@@ -268,15 +267,15 @@ public class RedBlackTree {
                 }
                 if ((other.right == null || isBlack(other.right)) && isRed(other.left)) {
                     setRed(other);
-                    setBlack(other.right);
-                    leftRotate(other);
-                    other = parent.left;
-                }
-                if (isRed(other.left)) {
                     setBlack(other.left);
+                    rightRotate(other);
+                    other = parent.right;
+                }
+                if (isRed(other.right)) {
+                    setBlack(other.right);
                     other.color = parent.color;
                     setBlack(parent);
-                    rightRotate(parent);
+                    leftRotate(parent);
                     node = root;
                     break;
                 }
